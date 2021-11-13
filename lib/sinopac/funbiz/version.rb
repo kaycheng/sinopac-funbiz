@@ -2,6 +2,7 @@
 
 module Sinopac
   module Funbiz
-    VERSION = "0.1.0"
+    VERSION = "0.0.1"
+    API_VERSION = "1.15"
   end
 end

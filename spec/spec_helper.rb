@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "sinopac/funbiz"
+require "sinopac/funbiz/all"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
