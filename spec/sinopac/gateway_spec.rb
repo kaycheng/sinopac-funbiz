@@ -52,4 +52,30 @@ RSpec::describe Sinopac::Funbiz::Gateway do
     gateway = build(:gateway, :ithome)
     expect(gateway.hash_id).to eq ENV['FUNBIZ_HASH_ID']
   end
+
+  it "can build an order params for credit card transaction" do
+    order = build(:order, product_name: 'learning how to learn')
+    gateway = build(:gateway, :ithome)
+
+    result = gateway.build_creditcard_order(
+      order: order,
+      auto_billing: true
+    )
+
+    expect(result[:PrdtName]).to eq 'learning how to learn'
+    expect(result[:CurrencyID]).to eq 'TWD'
+    expect(result[:PayType]).to eq 'C'
+    expect(result[:CardParam][:AutoBilling]).to eq 'Y'
+  end
+
+  it "can build an order params for atm transaction" do
+    order = build(:order, memo: 'memo test')
+    gateway = build(:gateway, :ithome)
+
+    result = gateway.build_atm_order(order: order, expired_after: 10)
+
+    expect(result[:Memo]).to eq 'memo test'
+    expect(result[:PayType]).to eq 'A'
+    expect(result[:AtmParam][:ExpireDate]).to eq '20211127'
+  end
 end
