@@ -93,6 +93,7 @@ GEM
     ruby-progressbar (1.11.0)
     shellany (0.0.1)
     thor (1.1.0)
+    timecop (0.9.4)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.1.0)
@@ -114,6 +115,7 @@ DEPENDENCIES
   rspec (~> 3.10)
   rubocop (~> 1.7)
   sinopac-funbiz!
+  timecop (~> 0.9.4)
   vcr (~> 6.0)
   webmock (~> 3.14)
 

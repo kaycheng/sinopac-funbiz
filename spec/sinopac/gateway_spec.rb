@@ -1,3 +1,5 @@
+require 'timecop'
+
 RSpec::describe Sinopac::Funbiz::Gateway do
   it "can get nonce" do
     VCR.use_cassette("nonce") do
@@ -69,13 +71,16 @@ RSpec::describe Sinopac::Funbiz::Gateway do
   end
 
   it "can build an order params for atm transaction" do
-    order = build(:order, memo: 'memo test')
-    gateway = build(:gateway, :ithome)
-
-    result = gateway.build_atm_order(order: order, expired_after: 10)
-
-    expect(result[:Memo]).to eq 'memo test'
-    expect(result[:PayType]).to eq 'A'
-    expect(result[:AtmParam][:ExpireDate]).to eq '20211127'
+    today = Time.local(1995, 04, 29)
+    Timecop.freeze(today) do
+      order = build(:order, memo: 'memo test')
+      gateway = build(:gateway, :ithome)
+  
+      result = gateway.build_atm_order(order: order, expired_after: 10)
+  
+      expect(result[:Memo]).to eq 'memo test'
+      expect(result[:PayType]).to eq 'A'
+      expect(result[:AtmParam][:ExpireDate]).to eq '19950509'
+    end
   end
 end

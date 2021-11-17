@@ -29,31 +29,16 @@ module Sinopac::Funbiz
     end
 
     def build_creditcard_order(order:, **options)
-      {
-        ShopNo: @shop_no,
-        OrderNo: order.order_no,
-        Amount: order.amount * 100,
-        CurrencyID: options[:currency] || 'TWD',
-        PrdtName: order.product_name,
-        Memo: order.memo,
-        Param1: order.param1,
-        Param2: order.param2,
-        Param3: order.param3,
-        ReturnURL: @return_url,
-        BackendURL: @backend_url,
-        PayType: 'C',
-        CardParam: {
-          AutoBilling: options[:auto_billing] ? 'Y' : 'N',
-          ExpBillingDays: options[:auto_billing] ? '' : options[:expired_billing_days] || 7,
-          ExpMinutes: options[:expired_minutes] || 10,
-          PayTypeSub: 'ONE'
-        }
-      }
+      build_order(order: order, type: :credit_card, **options)
     end
 
     def build_atm_order(order:, **options)
-      expired_after = options[:expired_after] || 10
-      {
+      build_order(order: order, type: :atm, **options)
+    end
+
+    private
+    def build_order(order:, type:, **options)
+      content = {
         ShopNo: @shop_no,
         OrderNo: order.order_no,
         Amount: order.amount * 100,
@@ -64,12 +49,31 @@ module Sinopac::Funbiz
         Param2: order.param2,
         Param3: order.param3,
         ReturnURL: @return_url,
-        BackendURL: @backend_url,
-        PayType: 'A',
-        AtmParam: {
-          ExpireDate: (Date.today + expired_after).strftime('%Y%m%d')
-        }
+        BackendURL: @backend_url
       }
+
+      case type
+      when :atm
+        expired_after = options[:expired_after] || 10
+        content.merge!({
+          PayType: 'A',
+          AtmParam: {
+            ExpireDate: (Date.today + expired_after).strftime('%Y%m%d')
+          }
+        })
+      when :credit_card
+        content.merge!({
+          PayType: 'C',
+          CardParam: {
+            AutoBilling: options[:auto_billing] ? 'Y' : 'N',
+            ExpBillingDays: options[:auto_billing] ? '' : options[:expired_billing_days] || 10,
+            ExpMinutes: options[:expired_minutes] || 10,
+            PayTypeSub: 'ONE'
+          }
+        })
+      else
+        raise "The payment method isn't supported yet!"
+      end
     end
   end
 end
