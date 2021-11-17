@@ -13,6 +13,7 @@ GEM
     crack (0.4.5)
       rexml
     diff-lcs (1.4.4)
+    dotenv (2.7.6)
     ffi (1.15.4)
     formatador (0.3.0)
     guard (2.18.0)
@@ -91,6 +92,7 @@ PLATFORMS
   x86_64-darwin-20
 
 DEPENDENCIES
+  dotenv (~> 2.7)
   guard-rspec (~> 4.7)
   rake (~> 13.0)
   rspec (~> 3.10)

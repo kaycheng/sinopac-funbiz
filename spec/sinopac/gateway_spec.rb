@@ -41,4 +41,10 @@ RSpec::describe Sinopac::Funbiz::Gateway do
 
     expect(hash_id).to eq "4DA70F5E2D800D50B43ED3B537480C64"
   end
+
+  it "can build a new gateway without arguments" do
+    gateway = Sinopac::Funbiz::Gateway.new
+
+    expect(gateway.shop_no).to eq ENV['FUNBIZ_SHOP_NO']
+  end
 end
