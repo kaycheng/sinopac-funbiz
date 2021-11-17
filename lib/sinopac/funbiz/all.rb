@@ -4,6 +4,7 @@
   "sinopac/funbiz/nonce",
   "sinopac/funbiz/sign",
   "sinopac/funbiz/message",
+  "sinopac/funbiz/gateway",
 ].each do |mod|
   begin
     require mod
