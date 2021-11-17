@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 require 'dotenv/load'
 require "support/vcr"
+require "support/factory_bot"
 require "sinopac/funbiz"
 require "sinopac/funbiz/all"
 

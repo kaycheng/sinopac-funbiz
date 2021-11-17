@@ -47,4 +47,9 @@ RSpec::describe Sinopac::Funbiz::Gateway do
 
     expect(gateway.shop_no).to eq ENV['FUNBIZ_SHOP_NO']
   end
+
+  it "can build a gateway with factory" do
+    gateway = build(:gateway, :ithome)
+    expect(gateway.hash_id).to eq ENV['FUNBIZ_HASH_ID']
+  end
 end
