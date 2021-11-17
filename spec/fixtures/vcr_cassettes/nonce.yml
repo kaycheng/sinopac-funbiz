@@ -1,0 +1,53 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://sandbox.sinopac.com/QPay.WebAPI/api/Nonce
+    body:
+      encoding: UTF-8
+      string: '{"ShopNo":"NA0001_001"}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - sandbox.sinopac.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Expires:
+      - "-1"
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Security-Policy:
+      - 'default-src * data: blob: ''unsafe-inline'' ''unsafe-eval'';'
+      Referrer-Policy:
+      - no-referrer-when-downgrade
+      Feature-Policy:
+      - accelerometer *; camera *; geolocation *; gyroscope *; magnetometer *; microphone
+        *; payment *; usb *
+      Date:
+      - Wed, 17 Nov 2021 02:38:26 GMT
+      Content-Length:
+      - '120'
+      Set-Cookie:
+      - TS01df8999=013da0ccc00ab0529e38be636e224997e03617a6212bc4dd3e24558d45bda55600c6a1470241f279c9e898a29e8426c44e05c819ee;
+        Path=/; Secure; HTTPOnly
+    body:
+      encoding: UTF-8
+      string: '{"Nonce":"NjM3NzI3NDIzMDYxNTkuODo2ZjdkZWRjZjNhMTNjMThhNWZlNjU2ZTk5OWYxOTM5MTE1ZTZhNjlkYmU2ZDg2MmNmOWUzYTRmNTVhYmI1Yzkx"}'
+  recorded_at: Wed, 17 Nov 2021 02:38:26 GMT
+recorded_with: VCR 6.0.0

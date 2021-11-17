@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-
+require "support/vcr"
 require "sinopac/funbiz"
 require "sinopac/funbiz/all"
 
