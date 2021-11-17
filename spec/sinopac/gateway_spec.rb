@@ -83,4 +83,25 @@ RSpec::describe Sinopac::Funbiz::Gateway do
       expect(result[:AtmParam][:ExpireDate]).to eq '19950509'
     end
   end
+
+  it "can convert order params to request params" do
+    gateway = build(:gateway, :ithome)
+    order = build(:order)
+
+    order_params = gateway.build_creditcard_order(
+      order: order, 
+      auto_billing: true
+    )
+    result = gateway.order_create_request_params(order_params: order_params)
+
+    expect(result[:APIService]).to eq 'OrderCreate'
+  end
+
+  it "can receive api response" do
+    order = build(:order)
+    gateway = build(:gateway, :ithome)
+
+    result = gateway.pay!(order: order, pay_type: :atm)
+    p result
+  end
 end

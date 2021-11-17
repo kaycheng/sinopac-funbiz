@@ -1,3 +1,7 @@
+require 'net/http'
+require 'uri'
+require 'json'
+
 module Sinopac::Funbiz
   class Gateway
     attr_accessor :shop_no
@@ -16,7 +20,7 @@ module Sinopac::Funbiz
     end
 
     def get_nonce
-      Nonce.get_nonce(shop_no: @shop_no, end_point: @end_point)
+      @nonce ||= Nonce.get_nonce(shop_no: @shop_no, end_point: @end_point)
     end
 
     def hash_id
@@ -36,7 +40,63 @@ module Sinopac::Funbiz
       build_order(order: order, type: :atm, **options)
     end
 
+    def order_create_request_params(order_params:)
+      {
+        Version: "1.0.0",
+        ShopNo: @shop_no,
+        APIService: "OrderCreate",
+        Sign: sign(content: order_params),
+        Nonce: get_nonce,
+        Message: encrypt_message(content: order_params)
+      }
+    end
+
+    def pay!(order:, pay_type:, **options)
+      order_params = case pay_type
+      when :atm
+        build_atm_order(order: order, **options)
+      when :credit_card
+        build_creditcard_order(order: order, **options)
+      else
+        raise "The payment method isn't supported yet!"
+      end
+
+      request_params = order_create_request_params(order_params: order_params)
+      url = URI("#{@end_point}/Order")
+      header = { "Content-Type" => "application/json" }
+
+      resp = Net::HTTP.post(url, request_params.to_json, header)
+      result = decrypt_message(content: JSON.parse(resp.body))
+    end
+
     private
+    def decrypt_message(content:)
+      message = content["Message"]
+      nonce = content["Nonce"]
+
+      Message.decrypt(
+        content: message,
+        key: hash_id,
+        iv: Message.iv(nonce: nonce)
+      )
+    end
+
+    def encrypt_message(content:)
+      Message.encrypt(
+        content: content,
+        key: hash_id,
+        iv: Sinopac::Funbiz::Message.iv(nonce: get_nonce)
+      )
+    end
+
+    def sign(content:)
+      Sign.sign(
+        content: content,
+        nonce: get_nonce,
+        hash_id: hash_id
+      )
+    end
+
     def build_order(order:, type:, **options)
       content = {
         ShopNo: @shop_no,
