@@ -67,6 +67,8 @@ module Sinopac::Funbiz
 
       resp = Net::HTTP.post(url, request_params.to_json, header)
       result = decrypt_message(content: JSON.parse(resp.body))
+
+      Result.new(result)
     end
 
     private
@@ -126,7 +128,7 @@ module Sinopac::Funbiz
           PayType: 'C',
           CardParam: {
             AutoBilling: options[:auto_billing] ? 'Y' : 'N',
-            ExpBillingDays: options[:auto_billing] ? '' : options[:expired_billing_days] || 10,
+            ExpBillingDays: options[:auto_billing] ? '' : options[:expired_billing_days] || 7,
             ExpMinutes: options[:expired_minutes] || 10,
             PayTypeSub: 'ONE'
           }

@@ -101,7 +101,10 @@ RSpec::describe Sinopac::Funbiz::Gateway do
     order = build(:order)
     gateway = build(:gateway, :ithome)
 
-    result = gateway.pay!(order: order, pay_type: :atm)
-    p result
+    result = gateway.pay!(order: order, pay_type: :credit_card)
+    
+    expect(result).to be_success
+    expect(result.pay_type).to eq :credit_card
+    expect(result.payment_url).not_to be_empty
   end
 end
