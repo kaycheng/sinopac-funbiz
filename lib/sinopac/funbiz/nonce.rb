@@ -2,7 +2,7 @@ require 'net/http'
 require 'uri'
 require 'json'
 
-module Sinopac::Funbiz
+module Sinopac::FunBiz
   module Nonce
     def self.get_nonce(shop_no:, end_point:)
       url = URI("#{end_point}/Nonce")

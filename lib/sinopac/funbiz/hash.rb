@@ -1,4 +1,4 @@
-module Sinopac::Funbiz
+module Sinopac::FunBiz
   module Hash 
     def self.string_xor(str1:, str2:)
       str1.chars.zip(str2.chars).map { |x, y|

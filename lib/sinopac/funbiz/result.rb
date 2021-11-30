@@ -1,4 +1,4 @@
-module Sinopac::Funbiz
+module Sinopac::FunBiz
   class Result
     attr_accessor :order_no, :shop_no, :transaction_no, :amount, :status, :description
     attr_accessor :param1, :param2, :param3, :pay_type, :payment_params

@@ -4,7 +4,7 @@ require_relative "lib/sinopac/funbiz/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "sinopac-funbiz"
-  spec.version       = Sinopac::Funbiz::VERSION
+  spec.version       = Sinopac::FunBiz::VERSION
   spec.authors       = ["kaycheng"]
   spec.email         = ["kaycheng717@gmail.com"]
 

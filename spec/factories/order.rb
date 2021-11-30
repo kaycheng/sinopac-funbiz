@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :order, class: Sinopac::Funbiz::Order do
+  factory :order, class: Sinopac::FunBiz::Order do
     order_no { "#{Date.today.strftime('%Y%m%d')}#{[*'A'..'Z', *'1'..'9'].sample(10).join}" }
     product_name { "Test" }
     amount { 2000 }

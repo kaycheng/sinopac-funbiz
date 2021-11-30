@@ -1,11 +1,11 @@
-RSpec::describe Sinopac::Funbiz::Order do
+RSpec::describe Sinopac::FunBiz::Order do
   it "can build a valid order" do
     order_no = "TS001"
     amount = 1000
     product_name = "Test"
     memo = "Testing is interesting."
 
-    order = Sinopac::Funbiz::Order.new(
+    order = Sinopac::FunBiz::Order.new(
       order_no: order_no,
       amount: amount,
       product_name: product_name,

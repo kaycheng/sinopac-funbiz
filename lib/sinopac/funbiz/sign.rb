@@ -1,6 +1,6 @@
 require 'digest'
 
-module Sinopac::Funbiz
+module Sinopac::FunBiz
   module Sign
     def self.to_query(content:)
       content.sort.map { |k, v|

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Sinopac
-  module Funbiz
+  module FunBiz
     VERSION = "0.1.0"
     API_VERSION = "1.15"
   end

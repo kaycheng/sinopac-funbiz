@@ -2,7 +2,7 @@ require 'digest'
 require 'openssl'
 require 'json'
 
-module Sinopac::Funbiz
+module Sinopac::FunBiz
   module Message
     def self.iv(nonce:)
       Digest::SHA256.hexdigest(nonce).upcase[-16..]

@@ -2,7 +2,7 @@ require 'net/http'
 require 'uri'
 require 'json'
 
-module Sinopac::Funbiz
+module Sinopac::FunBiz
   class Gateway
     attr_accessor :shop_no
 
@@ -87,7 +87,7 @@ module Sinopac::Funbiz
       Message.encrypt(
         content: content,
         key: hash_id,
-        iv: Sinopac::Funbiz::Message.iv(nonce: get_nonce)
+        iv: Sinopac::FunBiz::Message.iv(nonce: get_nonce)
       )
     end
 

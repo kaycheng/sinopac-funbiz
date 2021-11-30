@@ -3,7 +3,7 @@
 require_relative "funbiz/version"
 
 module Sinopac
-  module Funbiz
+  module FunBiz
     class Error < StandardError; end
     # Your code goes here...
   end

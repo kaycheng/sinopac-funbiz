@@ -1,6 +1,6 @@
 require 'timecop'
 
-RSpec::describe Sinopac::Funbiz::Gateway do
+RSpec::describe Sinopac::FunBiz::Gateway do
   it "can get nonce" do
     VCR.use_cassette("nonce") do
       shop_no = "NA0001_001"
@@ -12,7 +12,7 @@ RSpec::describe Sinopac::Funbiz::Gateway do
         b2:"7F242C0AA612454F"
       }
 
-      gateway = Sinopac::Funbiz::Gateway.new(
+      gateway = Sinopac::FunBiz::Gateway.new(
         shop_no: shop_no,
         end_point: end_point,
         hashes: hashes
@@ -34,7 +34,7 @@ RSpec::describe Sinopac::Funbiz::Gateway do
       b2:"7F242C0AA612454F"
     }
 
-    gateway = Sinopac::Funbiz::Gateway.new(
+    gateway = Sinopac::FunBiz::Gateway.new(
       shop_no: shop_no,
       end_point: end_point, 
       hashes: hashes
@@ -45,7 +45,7 @@ RSpec::describe Sinopac::Funbiz::Gateway do
   end
 
   it "can build a new gateway without arguments" do
-    gateway = Sinopac::Funbiz::Gateway.new
+    gateway = Sinopac::FunBiz::Gateway.new
 
     expect(gateway.shop_no).to eq ENV['FUNBIZ_SHOP_NO']
   end

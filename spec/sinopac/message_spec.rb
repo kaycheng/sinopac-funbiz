@@ -1,12 +1,12 @@
-RSpec::describe Sinopac::Funbiz::Message do
+RSpec::describe Sinopac::FunBiz::Message do
   it "can calculate iv value" do
-    result = Sinopac::Funbiz::Message.iv(nonce: dummy_nonce)
+    result = Sinopac::FunBiz::Message.iv(nonce: dummy_nonce)
 
     expect(result).to eq dummy_iv
   end
 
   it "can encrypt message" do
-    result = Sinopac::Funbiz::Message.encrypt(
+    result = Sinopac::FunBiz::Message.encrypt(
       content: dummy_order_content,
       key: dummy_hash_id,
       iv: dummy_iv
@@ -18,9 +18,9 @@ RSpec::describe Sinopac::Funbiz::Message do
   it "can decrypt message" do
     message = dummy_request_params[:Message]
     nonce = dummy_request_params[:Nonce]
-    iv = Sinopac::Funbiz::Message.iv(nonce: nonce)
+    iv = Sinopac::FunBiz::Message.iv(nonce: nonce)
 
-    result = Sinopac::Funbiz::Message.decrypt(
+    result = Sinopac::FunBiz::Message.decrypt(
       content: message,
       key: dummy_hash_id,
       iv: iv

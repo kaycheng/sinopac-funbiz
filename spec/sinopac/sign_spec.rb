@@ -1,6 +1,6 @@
-RSpec::describe Sinopac::Funbiz::Sign do
+RSpec::describe Sinopac::FunBiz::Sign do
   it "can convert order content to query string" do
-    result = Sinopac::Funbiz::Sign.to_query(content: dummy_order_content)
+    result = Sinopac::FunBiz::Sign.to_query(content: dummy_order_content)
 
     expect(result).to eq dummy_query_string
   end
@@ -9,7 +9,7 @@ RSpec::describe Sinopac::Funbiz::Sign do
     dummy_nonce = "NjM2NjY5MDQ3OTQwMzIuMTphZmJjODBhOTM5NzQ1NjMyNDFhZTczMjVjYzg0Mjg5ZjQxYTk2MWI2ZjNkYTA0NDdmOTRhZjU3ZTIzOWJlNDgz"
     dummy_hash_id = "4DA70F5E2D800D50B43ED3B537480C64"
 
-    result = Sinopac::Funbiz::Sign.sign(
+    result = Sinopac::FunBiz::Sign.sign(
       content: dummy_order_content,
       nonce: dummy_nonce,
       hash_id: dummy_hash_id

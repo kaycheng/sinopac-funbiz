@@ -1,4 +1,4 @@
-module Sinopac::Funbiz
+module Sinopac::FunBiz
   class Order
     attr_accessor :order_no, :amount, :product_name, :currency
     attr_accessor :memo, :param1, :param2, :param3
