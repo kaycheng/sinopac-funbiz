@@ -1,6 +1,4 @@
-# frozen_string_literal: true
-
-require_relative "funbiz/version"
+require "sinopac/funbiz/all"
 
 module Sinopac
   module FunBiz
