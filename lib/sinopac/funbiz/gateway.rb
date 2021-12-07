@@ -41,14 +41,28 @@ module Sinopac::FunBiz
     end
 
     def order_create_request_params(order_params:)
-      {
-        Version: "1.0.0",
-        ShopNo: @shop_no,
-        APIService: "OrderCreate",
-        Sign: sign(content: order_params),
-        Nonce: get_nonce,
-        Message: encrypt_message(content: order_params)
+      build_request_params(order_params: order_params, service_type: "OrderCreate")
+    end
+
+    def order_pay_query_request_params(data:)
+      build_request_params(order_params: data, service_type: "OrderPayQuery")
+    end
+
+    def query_pay_order(shop_no: nil, pay_token:)
+      data = {
+        ShopNo: shop_no || @shop_no,
+        PayToken: pay_token
       }
+
+      result = order_pay_query_request_params(data: data)
+      
+      url = URI("#{@end_point}/Order")
+      header = { "Content-Type" => "application/json" }
+
+      resp = Net::HTTP.post(url, result.to_json, header)
+      result = decrypt_message(content: JSON.parse(resp.body))
+
+      TransactionResult.new(result)
     end
 
     def pay!(order:, pay_type:, **options)
@@ -72,6 +86,17 @@ module Sinopac::FunBiz
     end
 
     private
+    def build_request_params(order_params:, service_type:)
+      {
+        Version: "1.0.0",
+        ShopNo: @shop_no,
+        APIService: service_type,
+        Sign: sign(content: order_params),
+        Nonce: get_nonce,
+        Message: encrypt_message(content: order_params)
+      }
+    end
+
     def decrypt_message(content:)
       message = content["Message"]
       nonce = content["Nonce"]

@@ -102,9 +102,24 @@ RSpec::describe Sinopac::FunBiz::Gateway do
     gateway = build(:gateway, :ithome)
 
     result = gateway.pay!(order: order, pay_type: :credit_card)
-    
+
     expect(result).to be_success
     expect(result.pay_type).to eq :credit_card
     expect(result.payment_url).not_to be_empty
+  end
+
+  it "can query pay order" do
+    gateway = build(:gateway, :ithome)
+    dummy_shop_no = 'NA0249_001'
+    dummy_pay_token = "f034c46b85c36515730e193b2db447c27190386eb1869a09c07e3f609fd190b6"
+
+    result = gateway.query_pay_order(
+      shop_no: dummy_shop_no,
+      pay_token: dummy_pay_token
+    )
+
+    expect(result).to be_success
+    expect(result.shop_no).to eq dummy_shop_no
+    expect(result.order_no).not_to be nil
   end
 end
