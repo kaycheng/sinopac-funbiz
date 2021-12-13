@@ -122,4 +122,14 @@ RSpec::describe Sinopac::FunBiz::Gateway do
     expect(result.shop_no).to eq dummy_shop_no
     expect(result.order_no).not_to be nil
   end
+
+  it "can query a valid order" do
+    dummy_order_no = 'RB20211213LU8DMAF650'
+    gateway = build(:gateway, :ithome)
+
+    result = gateway.query_order(order_no: dummy_order_no)
+    
+    expect(result).to be_success
+    expect(result.pay_status).to eq '1A400'
+  end
 end
